@@ -1,0 +1,318 @@
+:root {
+    --bg: #020617;
+    --card: #0f172a;
+    --border: #1e293b;
+    --blue: #3b82f6;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --green: #10b981;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Navbar */
+.navbar {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    border-bottom: 2px solid var(--border);
+    background: #000;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--green);
+}
+
+.mode-btn {
+    background: #1e293b;
+    border: 2px solid var(--border);
+    color: #fff;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+.mode-btn.active {
+    border-color: var(--blue);
+    background: rgba(59, 130, 246, 0.28);
+}
+
+/* Main layout */
+.app-container {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    height: calc(100vh - 80px);
+    overflow: hidden;
+}
+
+/* Canvas */
+.canvas-horizontal {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    padding: 20px;
+    overflow: hidden;
+    height: 100%;
+}
+
+.canvas-column {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.column-header {
+    font-size: 18px;
+    font-weight: 800;
+    color: #64748b;
+    margin-bottom: 12px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* Actor lists */
+.actor-scroll-box {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    background: rgba(0,0,0,0.3);
+}
+
+.actor-scroll-box::-webkit-scrollbar {
+    width: 7px;
+}
+.actor-scroll-box::-webkit-scrollbar-track {
+    background: #0f172a;
+    border-radius: 10px;
+}
+.actor-scroll-box::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 10px;
+    border: 2px solid #0f172a;
+}
+.actor-scroll-box::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+.actor-row {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.actor-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.p-bar-bg {
+    background: #000;
+    height: 14px;
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+.p-bar-fill {
+    height: 100%;
+    width: 0%;
+    transition: width 0.12s linear;
+}
+
+.reader-fill { background: var(--blue); box-shadow: 0 0 12px var(--blue); }
+.writer-fill { background: var(--amber); box-shadow: 0 0 12px var(--amber); }
+
+/* Center column */
+.center-col {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.db-card {
+    width: 260px;
+    height: 260px;
+    border: 5px solid var(--border);
+    border-radius: 40px;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.db-icon { font-size: 90px; }
+.db-version { font-size: 28px; font-weight: 800; margin-top: 12px; }
+
+.lock-tag {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 16px;
+}
+
+.collision-alert {
+    position: absolute;
+    bottom: -60px;
+    color: var(--red);
+    font-size: 22px;
+    font-weight: 900;
+    animation: blink 0.6s infinite;
+    display: none;
+}
+
+.semaphore-display {
+    margin-top: 40px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.sem {
+    background: var(--card);
+    padding: 14px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    text-align: center;
+    font-size: 17px;
+    color: var(--green);
+}
+
+.sem-locked {
+    color: #f59e0b;          /* amber/orange when locked (0) */
+    font-weight: 800;
+}
+
+.sem-free {
+    color: #10b981;          /* green when free (1) */
+    font-weight: bold;
+}
+
+.readers_writers {
+    background: var(--card);
+    padding: 14px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    text-align: center;
+    font-size: 17px;
+    color: var(--blue);
+}
+
+
+
+/* Sidebar */
+.sidebar {
+    background: #000;
+    border-left: 3px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.sidebar-label {
+    font-size: 15px;
+    color: #64748b;
+    margin-bottom: 8px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.log-container {
+    flex: 2 1 auto; /* Increased flex ratio to give more height to logs */
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    margin-bottom: 15px;
+}
+
+.log-box {
+    flex: 1 1 auto;
+    min-height: 0;
+    background: #020617;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 15.5px;
+    color: #94a3b8;
+    overflow-y: auto;
+    line-height: 1.55;
+}
+
+.log-box::-webkit-scrollbar {
+    width: 8px;
+}
+.log-box::-webkit-scrollbar-track {
+    background: #0b1320;
+    border-radius: 10px;
+    margin: 2px;
+}
+.log-box::-webkit-scrollbar-thumb {
+    background: linear-gradient(#475569, #64748b);
+    border-radius: 10px;
+    border: 2px solid #0b1320;
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.5);
+}
+.log-box::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(#64748b, #94a3b8);
+}
+
+.control-container {
+    flex-shrink: 0;
+    display: grid;
+    gap: 8px; /* Reduced gap slightly */
+    padding-top: 5px;
+}
+
+.btn {
+    padding: 14px; /* Reduced padding for smaller buttons */
+    border: none;
+    border-radius: 10px; /* Slightly tighter radius */
+    color: #fff;
+    font-size: 16px; /* Reduced font size for better proportion */
+    font-weight: 800;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+}
+
+.btn-read { background: var(--blue); }
+.btn-write { background: var(--amber); }
+.btn-reset { background: #334155; }
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}

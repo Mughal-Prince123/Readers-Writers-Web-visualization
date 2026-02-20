@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>OS Lab: Horizontal Reader-Writer Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="icon.png?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">OS_LAB: VISUALIZER</div>
+        <div class="mode-toggle">
+            <button id="btn-prob" class="mode-btn active">PROBLEM MODE</button>
+            <button id="btn-sol" class="mode-btn">SOLUTION MODE</button>
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <div class="canvas-horizontal">
+            
+            <div class="canvas-column">
+                <div class="column-header">READERS (SHARED)</div>
+                <div id="readers-list" class="actor-scroll-box"></div>
+            </div>
+
+            <div class="canvas-column center-col">
+                <div id="lock-tag" class="lock-tag">UNPROTECTED</div>
+                <div id="db-card" class="db-card">
+                    <div class="db-icon">💾</div>
+                    <div id="db-text" class="db-version">DB_v1.0</div>
+                    <div id="universal-alert" class="collision-alert">
+                        <span id="alert-msg">⚠️ DATA CORRUPTION</span>
+                    </div>       
+                </div>
+                <div class="semaphore-display">
+                 <div class="sem" id="sem-mutex" style="display: none;">MUTEX: <span id="s-mutex">1</span></div>
+                 <div class="sem" id="sem-rwlock" style="display: none;">RW_LOCK: <span id="s-rw">1</span></div>
+                 <div class="readers_writers" id="sem-readers">ACTIVE READERS: <span id="active-readers">0</span></div>
+                 <div class="readers_writers" id="sem-writers">ACTIVE WRITERS: <span id="active-writers">0</span></div>
+                </div>
+            </div>
+
+            <div class="canvas-column">
+                <div class="column-header">WRITERS (EXCLUSIVE)</div>
+                <div id="writers-list" class="actor-scroll-box"></div>
+            </div>
+
+        </div>
+
+        <div class="sidebar">
+            <div class="log-container">
+                <div class="sidebar-label">KERNEL_EXECUTION_LOG</div>
+                <div id="log-box" class="log-box"></div>
+            </div>
+
+            <div class="control-container">
+                <button onclick="addReader()" class="btn btn-read">SPAWN READER</button>
+                <button onclick="addWriter()" class="btn btn-write">SPAWN WRITER</button>
+                <button onclick="location.reload()" class="btn btn-reset">RESET SYSTEM</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
